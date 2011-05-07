@@ -1,0 +1,402 @@
+(dp0
+V\ub2e4\uc12f
+p1
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \ub2e4\uc12f ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p2
+S'F'
+p3
+tp4
+sV\uc5ec\uc12f
+p5
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc5ec\uc12f ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p6
+S'AF'
+p7
+tp8
+sVEleve
+p9
+(V- == {{PAGENAME}} ({{Sprache|Deutsch}}) ==\u000a?    ----- ^^^^^^\u000a\u000a+ == Eleve ({{Sprache|Deutsch}}) ==\u000a?     ^^^^\u000a\u000a
+p10
+S'AF'
+p11
+tp12
+sVgive
+p13
+(V- == to give ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == give ({{Sprache|Englisch}}) ==\u000a
+p14
+g7
+tp15
+sVDVD
+p16
+(V- |Wen? (Mehrzahl)=den DVDs\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die DVDs\u000a?                   +\u000a\u000a
+p17
+S'F'
+p18
+tp19
+sVWählscheibe
+p20
+(V- == {{PAGENAME}} ({{Sprache|Deutsch}}) ==\u000a+ == Wählscheibe ({{Sprache|Deutsch}}) ==\u000a
+p21
+g7
+tp22
+sVstop
+p23
+(V- == to stop ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == stop ({{Sprache|Englisch}}) ==\u000a
+p24
+g7
+tp25
+sV\ud558\ub098
+p26
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \ud558\ub098 ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p27
+g7
+tp28
+sVAfrika
+p29
+(V- |Wen? (Mehrzahl)=<small>(dem Afrika)</small>\u000a?                            -\u000a\u000a+ |Wen? (Mehrzahl)=<small>(die Afrikas)</small>\u000a?                           +        +\u000a\u000a
+p30
+S'NA'
+p31
+tp32
+sVOblate
+p33
+(V- == {{PAGENAME}} ({{Sprache|Deutsch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == Oblate ({{Sprache|Deutsch}}) ==\u000a?    ^^^^^^\u000a\u000a
+p34
+g7
+tp35
+sVhave
+p36
+(V- == to have ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == have ({{Sprache|Englisch}}) ==\u000a
+p37
+g7
+tp38
+sVIntelligenzquotient
+p39
+(V- |Wen? (Mehrzahl)=den Intelligenzquotienten\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Intelligenzquotienten\u000a?                   +\u000a\u000a
+p40
+g18
+tp41
+sV\uc5ec\ub35f
+p42
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc5ec\ub35f ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p43
+g7
+tp44
+sV\uc5f4
+p45
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc5f4 ({{Sprache|Koreanisch}}) ==\u000a?    ^\u000a\u000a
+p46
+g7
+tp47
+sVRekronym
+p48
+(V- |Wem? (Mehrzahl)=den Rekrnymen\u000a+ |Wem? (Mehrzahl)=den Rekronymen\u000a?                          +\u000a\u000a
+p49
+g31
+tp50
+sVafeitar
+p51
+(V- == {{PAGENAME}} ({{Sprache|Spanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == afeitar ({{Sprache|Spanisch}}) ==\u000a?    ^^^^^^^\u000a\u000a
+p52
+g7
+tp53
+sV\uc624
+p54
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc624 ({{Sprache|Koreanisch}}) ==\u000a?    ^\u000a\u000a
+p55
+g7
+tp56
+sVGegend
+p57
+(V- |Wem? (Mehrzahl)=der Gegenden\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Gegenden\u000a?                    ^\u000a\u000a
+p58
+g18
+tp59
+sVTribus
+p60
+(V- |Wem? (Einzahl)=die Tribus\u000a?                  -\u000a\u000a+ |Wem? (Einzahl)=der Tribus\u000a?                   +\u000a\u000a
+p61
+g18
+tp62
+sVmake
+p63
+(V- == to make ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == make ({{Sprache|Englisch}}) ==\u000a
+p64
+g7
+tp65
+sVHauptschlüssel
+p66
+(V- == {{PAGENAME}} ({{Sprache|Deutsch}}) ==\u000a+ == Hauptschlüssel ({{Sprache|Deutsch}}) ==\u000a
+p67
+g7
+tp68
+sVshorten
+p69
+(V- == to shorten ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == shorten ({{Sprache|Englisch}}) ==\u000a
+p70
+g7
+tp71
+sVGeographie
+p72
+(V- |Wem? (Mehrzahl)=der Geographien\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Geographien\u000a?                    ^\u000a\u000a
+p73
+g18
+tp74
+sVrubio
+p75
+(V- == {{PAGENAME}} ({{Sprache|Spanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == rubio ({{Sprache|Spanisch}}) ==\u000a?    ^^^^^\u000a\u000a
+p76
+g7
+tp77
+sVLitschi
+p78
+(V- |Wessen? (Einzahl)= der Litschi\u000a?                    -\u000a\u000a+ |Wessen? (Einzahl)=der Litschi\u000a- |Wessen? (Mehrzahl)= der Litschis\u000a?                     -\u000a\u000a+ |Wessen? (Mehrzahl)=der Litschis\u000a- |Wem? (Einzahl)= der Litschi\u000a?                 -\u000a\u000a+ |Wem? (Einzahl)=der Litschi\u000a- |Wem? (Mehrzahl)= den Lischis\u000a?                  -\u000a\u000a+ |Wem? (Mehrzahl)=den Litschis\u000a?                        +\u000a\u000a- |Wen? (Einzahl)= die Litschi\u000a?                 -\u000a\u000a+ |Wen? (Einzahl)=die Litschi\u000a- |Wen? (Mehrzahl)= die Litschis\u000a?                  -\u000a\u000a+ |Wen? (Mehrzahl)=die Litschis\u000a
+p79
+g31
+tp80
+sVMünze
+p81
+(V- |Wen? (Mehrzahl)=den Münzen\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Münzen\u000a?                   +\u000a\u000a
+p82
+g18
+tp83
+sV\ub137
+p84
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \ub137 ({{Sprache|Koreanisch}}) ==\u000a?    ^\u000a\u000a
+p85
+g7
+tp86
+sVVertiko
+p87
+(V-  Wer oder was? (Einzahl)=das Vertiko<br>der Vertiko\u000a+  Wer oder was? (Einzahl)=das Vertiko<br/>der Vertiko\u000a?                                        +\u000a\u000a- |Wen? (Einzahl)=das Vertiko<br>der Vertiko\u000a?                                  ^\u000a\u000a+ |Wen? (Einzahl)=das Vertiko<br/>den Vertiko\u000a?                               +   ^\u000a\u000a
+p88
+S'F'
+p89
+tp90
+sVpostpone
+p91
+(V- == to postpone ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == postpone ({{Sprache|Englisch}}) ==\u000a
+p92
+g7
+tp93
+sVVerhaltensforscher
+p94
+(V- |Wem? (Mehrzahl)=den Ver·hal·tens·for·schern \u000a?                                             -\u000a\u000a+ |Wem? (Mehrzahl)=den Ver·hal·tens·for·schern\u000a- |Wen? (Mehrzahl)=den Ver·hal·tens·for·schern\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Ver·hal·tens·for·schern\u000a?                   +\u000a\u000a
+p95
+S'NA'
+p96
+tp97
+sVkuolla
+p98
+(V- == {{PAGENAME}} ({{Sprache|Finnisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == kuolla ({{Sprache|Finnisch}}) ==\u000a?    ^^^^^^\u000a\u000a
+p99
+g7
+tp100
+sVlisten
+p101
+(V- == to listen ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == listen ({{Sprache|Englisch}}) ==\u000a
+p102
+g7
+tp103
+sVDessous
+p104
+(V- |Wer oder was? (Mehrzahl)=das Dessous\u000a?                            ^^\u000a\u000a+ |Wer oder was? (Mehrzahl)=die Dessous\u000a?                            ^^\u000a\u000a- |Wessen? (Einzahl)=\u000a+ |Wessen? (Einzahl)=-\u000a?                    +\u000a\u000a- |Wessen? (Mehrzahl)=\u000a+ |Wessen? (Mehrzahl)=-\u000a?                     +\u000a\u000a- |Wem? (Einzahl)=\u000a+ |Wem? (Einzahl)=-\u000a?                 +\u000a\u000a- |Wem? (Mehrzahl)=\u000a+ |Wem? (Mehrzahl)=-\u000a?                  +\u000a\u000a- |Wen? (Einzahl)=\u000a+ |Wen? (Einzahl)=-\u000a?                 +\u000a\u000a- |Wen? (Mehrzahl)=\u000a+ |Wen? (Mehrzahl)=-\u000a?                  +\u000a\u000a
+p105
+S'NA'
+p106
+tp107
+sV\uc14b
+p108
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc14b ({{Sprache|Koreanisch}}) ==\u000a?    ^\u000a\u000a
+p109
+g7
+tp110
+sVDespot
+p111
+(V- |Wen? (Mehrzahl)=den Despoten\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Despoten\u000a?                   +\u000a\u000a
+p112
+g106
+tp113
+sV\uace0\ub9d9\ub2e4
+p114
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uace0\ub9d9\ub2e4 ({{Sprache|Koreanisch}}) ==\u000a?    ^^^\u000a\u000a
+p115
+g7
+tp116
+sV\ubc8c\uc368
+p117
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \ubc8c\uc368 ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p118
+g7
+tp119
+sVMirpzahl
+p120
+(V- |Wessen? (Mehrzahl)=den Mirpzahlen\u000a?                       ^\u000a\u000a+ |Wessen? (Mehrzahl)=der Mirpzahlen\u000a?                       ^\u000a\u000a
+p121
+g106
+tp122
+sVSchwulität
+p123
+(V- |Wem? (Mehrzahl)=der Schwulitäten\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Schwulitäten\u000a?                    ^\u000a\u000a
+p124
+g96
+tp125
+sVFrieden
+p126
+(V- |Wer oder was? (Mehrzahl)=<small>([2] die Friedensschlüsse)</small>\u000a?                                   - -\u000a\u000a+ |Wer oder was? (Mehrzahl)=<small>(2 die Friedensschlüsse)</small>\u000a- |Wessen? (Mehrzahl)=<small>([2] der Friedensschlüsse)</small>\u000a?                             - -   -\u000a\u000a+ |Wessen? (Mehrzahl)=<small>(2 die Friedensschlüsse)</small>\u000a?                                +\u000a\u000a- |Wem? (Mehrzahl)=<small>([2] den Friedensschlüssen)</small>\u000a?                          - -   -\u000a\u000a+ |Wem? (Mehrzahl)=<small>(2 die Friedensschlüssen)</small>\u000a?                             +\u000a\u000a- |Wen? (Mehrzahl)=<small>([2] die Friedensschlüsse)</small>\u000a?                          - -\u000a\u000a+ |Wen? (Mehrzahl)=<small>(2 die Friedensschlüsse)</small>\u000a
+p127
+g31
+tp128
+sVknow
+p129
+(V- == to know ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == know ({{Sprache|Englisch}}) ==\u000a
+p130
+g7
+tp131
+sVmuistaa
+p132
+(V- == {{PAGENAME}} ({{Sprache|Finnisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == muistaa ({{Sprache|Finnisch}}) ==\u000a?    ^^^^^^^\u000a\u000a
+p133
+g7
+tp134
+sV\ub458
+p135
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \ub458 ({{Sprache|Koreanisch}}) ==\u000a?    ^\u000a\u000a
+p136
+g7
+tp137
+sVeat
+p138
+(V- == to eat ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == eat ({{Sprache|Englisch}}) ==\u000a
+p139
+g7
+tp140
+sVa. O.
+p141
+(V- == {{PAGENAME}} ({{Sprache|Deutsch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == a. O. ({{Sprache|Deutsch}}) ==\u000a?    ^^^^^\u000a\u000a
+p142
+g7
+tp143
+sVWolf
+p144
+(V- |Wem? (Mehrzahl)=der Wolfs\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Wolfs\u000a?                    ^\u000a\u000a
+p145
+g96
+tp146
+sVSchachzabel
+p147
+(V- |Wen? (Einzahl)=die Schachzabel\u000a?                  ^^\u000a\u000a+ |Wen? (Einzahl)=das Schachzabel\u000a?                  ^^\u000a\u000a
+p148
+g96
+tp149
+sVkeep the fingers crossed
+p150
+(V- == to keep the fingers crossed ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == keep the fingers crossed ({{Sprache|Englisch}}) ==\u000a
+p151
+S'NA'
+p152
+tp153
+sVVarietas
+p154
+(V- |Wem? (Mehrzahl)=der Varietas\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Varietates\u000a?                    ^        ++\u000a\u000a- |Wen? (Einzahl)=den Varietates\u000a?                   -        --\u000a\u000a+ |Wen? (Einzahl)=die Varietas\u000a?                  +\u000a\u000a- |Wen? (Mehrzahl)=die Varietas\u000a+ |Wen? (Mehrzahl)=die Varietates\u000a?                             ++\u000a\u000a
+p155
+g31
+tp156
+sVHaar
+p157
+(V- |Wessen? (Einzahl)=<small>(des)</small> Haar<br>Haars\u000a?                                             ---------\u000a\u000a+ |Wessen? (Einzahl)=des Haars<br/><small>(des)</small> Haar\u000a?                    ++++++++++++++\u000a\u000a- |Wem? (Einzahl)=<small>(dem)</small> Haar \u000a?                                          -\u000a\u000a+ |Wem? (Einzahl)=<small>(dem)</small> Haar\u000a- |Wen? (Einzahl)=<small>(das)</small> Haar \u000a?                                          -\u000a\u000a+ |Wen? (Einzahl)=<small>(das)</small> Haar\u000a
+p158
+g31
+tp159
+sVGlühlampe
+p160
+(V- |Wen? (Mehrzahl)=den Glühlampen\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Glühlampen\u000a?                   +\u000a\u000a
+p161
+g31
+tp162
+sVsee
+p163
+(V- == to see ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == see ({{Sprache|Englisch}}) ==\u000a
+p164
+g7
+tp165
+sVIndifferenz
+p166
+(V- |Wem? (Mehrzahl)=der Indifferenzen\u000a?                    ^\u000a\u000a+ |Wem? (Mehrzahl)=den Indifferenzen\u000a?                    ^\u000a\u000a
+p167
+g96
+tp168
+sVdas Auge ißt mit
+p169
+(V- ==das Auge ißt mit ({{Sprache|Deutsch}})==\u000a+ == das Auge ißt mit ({{Sprache|Deutsch}}) ==\u000a?   +                                      +\u000a\u000a
+p170
+g152
+tp171
+sVSyntänie
+p172
+(V- |Wem? (Einzahl)=der Sytänie\u000a+ |Wem? (Einzahl)=der Syntänie\u000a?                       +\u000a\u000a
+p173
+g31
+tp174
+sVwork like a horse
+p175
+(V- == to work like a horse ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == work like a horse ({{Sprache|Englisch}}) ==\u000a
+p176
+g152
+tp177
+sV\uc77c\uacf1
+p178
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc77c\uacf1 ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p179
+g7
+tp180
+sVune
+p181
+(V- == {{<includeonly>subst:</includeonly>PAGENAME}} ({{Sprache|Französisch}}) ==\u000a+ == une ({{Sprache|Französisch}}) ==\u000a
+p182
+g7
+tp183
+sVoutman
+p184
+(V- == to outman ({{Sprache|Englisch}}) ==\u000a?   ---\u000a\u000a+ == outman ({{Sprache|Englisch}}) ==\u000a
+p185
+g7
+tp186
+sVLuftfahrt
+p187
+(V- |Wer oder was? (Mehrzahl)=\u000a+ |Wer oder was? (Mehrzahl)=-\u000a?                           +\u000a\u000a- |Wessen? (Einzahl)=der Luffahrt\u000a+ |Wessen? (Einzahl)=der Luftfahrt\u000a?                           +\u000a\u000a- |Wessen? (Mehrzahl)=\u000a+ |Wessen? (Mehrzahl)=-\u000a?                     +\u000a\u000a- |Wem? (Mehrzahl)=\u000a+ |Wem? (Mehrzahl)=-\u000a?                  +\u000a\u000a- |Wen? (Mehrzahl)=\u000a+ |Wen? (Mehrzahl)=-\u000a?                  +\u000a\u000a
+p188
+g31
+tp189
+sVMyriade
+p190
+(V- |Wessen? (Mehrzahl)=den Myriaden\u000a?                       ^\u000a\u000a+ |Wessen? (Mehrzahl)=der Myriaden\u000a?                       ^\u000a\u000a
+p191
+g106
+tp192
+sV\uc544\ud649
+p193
+(V- == {{PAGENAME}} ({{Sprache|Koreanisch}}) ==\u000a?    ^^^^^^^^^^^^\u000a\u000a+ == \uc544\ud649 ({{Sprache|Koreanisch}}) ==\u000a?    ^^\u000a\u000a
+p194
+g7
+tp195
+sVMaler
+p196
+(V- |Wen? (Einzahl)=der Maler\u000a?                   ^\u000a\u000a+ |Wen? (Einzahl)=den Maler\u000a?                   ^\u000a\u000a
+p197
+g106
+tp198
+sVDoujinshi
+p199
+(V- |Wen? (Mehrzahl)=den Doujinshis\u000a?                    -\u000a\u000a+ |Wen? (Mehrzahl)=die Doujinshis\u000a?                   +\u000a\u000a
+p200
+g96
+tp201
+sVZug
+p202
+(V- |Wer oder was? (Einzahl)=der Zug\u000a?                           ^^\u000a\u000a+ |Wer oder was? (Einzahl)=das Zug\u000a?                           ^^\u000a\u000a- |Wen? (Einzahl)=den Zug\u000a?                  ^^\u000a\u000a+ |Wen? (Einzahl)=das Zug\u000a?                  ^^\u000a\u000a
+p203
+S'AF'
+p204
+tp205
+s.

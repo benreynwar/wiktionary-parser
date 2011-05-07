@@ -1,0 +1,2 @@
+python libary for Leipzig Uni stuff
+http://github.com/lehmannro/libleipzig-python
