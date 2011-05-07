@@ -32,6 +32,7 @@ class UebersetzungenSection(Section):
         regex = u'^\*{{en}}:(?P<content>.*)$'
         pattern = re.compile(regex, re.UNICODE)
         lines = self.text.split('\n')
+        text = None
         for line in lines:
             match = pattern.match(line)
             if match:
@@ -40,5 +41,10 @@ class UebersetzungenSection(Section):
                 text = re.sub(search_pattern, self.replacement, text)
                 search_pattern = re.compile(u"{{Ü\|en\|[\w\s']*|(?P<english>[\w\s']*)}}", re.UNICODE)
                 text = re.sub(search_pattern, self.replacement, text)
+        word = self.get_property('word')
+        if word is not None:
+            word.translation = {}
+            if text is not None:
+                word.translation['en'] = text
         return self
         

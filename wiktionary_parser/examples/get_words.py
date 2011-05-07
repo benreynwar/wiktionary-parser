@@ -29,6 +29,9 @@ for title, page in xml_parser.from_titles(german_words):
         if word.gender:
             print('--Gender--------------------')
             print(word.gender)
+        if 'en' in word.translation:
+            print('--English Translation-------')
+            print(word.translation['en'])
         print('******************')
     alerts = page.get_all_alerts()
     if alerts:

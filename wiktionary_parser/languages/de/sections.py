@@ -52,10 +52,10 @@ type_mapping = {
 type_to_page_class = {}
 # Create dictionary to convert types to page_class
 for page_class, types in type_mapping.items():
-    for type in types:
-        if type in type_to_page_class:
+    for typ in types:
+        if typ in type_to_page_class:
             raise StandardError('Duplicate')
-        type_to_page_class[type] = page_class
+        type_to_page_class[typ] = page_class
 
 
 class deWortartSection(ChildrenSection):
@@ -83,15 +83,16 @@ class deWortartSection(ChildrenSection):
         self.children.append(wortart_content)
         return self
 
-    def add_type(self, type):
+    def add_type(self, typ):
         types = self.get_property('types')
         word = self.get_property('word')
-        types.append(type)
+        types.append(typ)
         if self.get_property('language') == 'Deutsch' and not word:
-            page_class = type_to_page_class.get(type, None)
+            page_class = type_to_page_class.get(typ, None)
             if page_class:
                 title = self.get_property('page').title
                 new_word = page_class(title)
+                new_word.language = self.get_property('language')
                 self.set_property('word', new_word)
                 self.get_property('page').words.append(new_word)
        

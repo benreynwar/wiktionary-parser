@@ -66,9 +66,11 @@ class TemplateBlock(Block):
             params.append('')
         template_name = params[0]
         if template_name not in templates:
-            print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
-            print self.text
-            print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+            # FIXME: Should create an alert rather than print a message.
+            print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+            print(template_name)
+            print(self.text)
+            print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
             return '{{%s}}' % self.text
         else:
             return templates[template_name](params)
