@@ -13,7 +13,7 @@ class simpleWordTypeTitleSection(FTSection):
     fts = []
 
     # Incorrect Formatting Types that are Readable/Fixable
-    standard_fix_func = lambda data: u'== %s  ==' % \
+    standard_fix_func = lambda data: u'==%s==' % \
         (data['wordtype'])
 
     # Correct Formatting
@@ -21,6 +21,6 @@ class simpleWordTypeTitleSection(FTSection):
     fts.append(RegexFT(
             description='Standard wordtype title.',
             slug='standard',
-            regex=u'==\s*(?P<wordtype>\w*-?)\s*==',
+            regex=u'==\s*(?P<wordtype>[\w]+)\s*==',
             correct=True, ))
 
