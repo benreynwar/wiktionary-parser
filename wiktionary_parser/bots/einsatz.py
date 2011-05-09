@@ -23,7 +23,7 @@ class Change(object):
         self.word = word
         self.fix = fix
 
-site = 'http:/de.wiktionary.org/w/api.php'
+site = wikitools.wiki.Wiki('http:/de.wiktionary.org/w/api.php')
 
 class Einsatz(object):
     """

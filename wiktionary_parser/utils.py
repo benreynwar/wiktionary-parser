@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Test whether removal of HTML tags is working
 >>> text="Hello there <small> person </small> with an <unknown> tag</unknown>"
@@ -24,6 +25,7 @@ import StringIO
 #from django.utils.html import escape
 
 from wiktionary_parser.wiktionary_utils.text_splitter import Block, Splitter, FillerBlock as OldFillerBlock
+from wiktionary_parser.alerts import NoTemplateMatchAlert
 
 class SquareBracketBlock(Block):
     start_pattern = '\[\['
@@ -56,9 +58,17 @@ templates = {'Literaturliste': lambda p: '',
              }
 
 class TemplateBlock(Block):
+    """
+    Processes named templates.
+    Returns a tuple of (processed text, raised alerts).
+    """
     start_pattern = '{{'
     stop_pattern = '}}'
     slug = 'template_block'
+
+    def __init__(self, *args, **kwargs):
+        super(TemplateBlock, self).__init__(*args, **kwargs)
+        self.alerts = []
 
     def to_text(self):
         params = self.text.split('|')
@@ -66,11 +76,10 @@ class TemplateBlock(Block):
             params.append('')
         template_name = params[0]
         if template_name not in templates:
-            # FIXME: Should create an alert rather than print a message.
-            print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-            print(template_name)
-            print(self.text)
-            print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+            message = 'The template name %s is not known.' % template_name
+            alert = NoTemplateMatchAlert(
+                message=message, title=None)
+            self.alerts.append(alert)
             return '{{%s}}' % self.text
         else:
             return templates[template_name](params)
@@ -100,17 +109,20 @@ def apply_blocks(text, blocks):
     file_obj = str_to_file_obj(text)
     splitter = Splitter(file_obj, blocks, filler_blocks=True, filler_block_class=FillerBlock)
     new_text = []
+    alerts = []
     for block in splitter:
         new_text.append(block.to_text())
-    return ''.join(new_text)    
+        if hasattr(block, 'alerts'):
+            alerts += block.alerts
+    return (''.join(new_text), alerts)
 
 def wikitext_to_plaintext(wikitext):
-    text = apply_blocks(wikitext, [SquareBracketBlock, HtmlBlock, TemplateBlock])
+    text, alerts = apply_blocks(wikitext, [SquareBracketBlock, HtmlBlock, TemplateBlock])
     # Needs some HTML escaping
     #text = escape(text)
-    text = apply_blocks(text, [QuoteBlock])
-    return text
-
+    text, more_alerts = apply_blocks(text, [QuoteBlock])
+    alerts += more_alerts
+    return (text, alerts)
 
 if __name__ == "__main__":
     import doctest

@@ -69,3 +69,5 @@ class MismatchAlert(Alert):
 class MissingContentAlert(Alert):
     description = 'Required content is missing from the entry.'
 
+class NoTemplateMatchAlert(Alert):
+    description = "A template was found but the name of the template is not known."

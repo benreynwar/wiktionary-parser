@@ -11,9 +11,10 @@ class BedeutungenSection(Section):
         word = self.get_property('word')
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
         if word is not None:
-            word.bedeutungen = w2p(content)
+            text, alerts = w2p(content)
+            self.alerts += alerts
+            word.definitions.append(text)
         return self
-
 
 class BeispieleSection(Section):
     def parse(self):
@@ -21,7 +22,10 @@ class BeispieleSection(Section):
         word = self.get_property('word')
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
         if word is not None:
-            word.beispiele = w2p(content)
+            # FIXME (try to associate examples with definitions).
+            text, alerts = w2p(content)
+            self.alerts += alerts
+            word.examples.append([text])
         return self
 
 class UebersetzungenSection(Section):

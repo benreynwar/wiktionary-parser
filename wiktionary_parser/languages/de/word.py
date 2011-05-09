@@ -4,10 +4,10 @@ class deWord(Word):
     
     def __init__(self, *args, **kwargs):
         super(deWord, self).__init__(*args, **kwargs)
-        self.bedeutungen = None
-        self.beispiele = None
 
 class deSubstantiv(deWord):
+
+    typeslug = 'Substantiv'
 
     def __init__(self, *args, **kwargs):
         super(deSubstantiv, self).__init__(*args, **kwargs)
