@@ -6,7 +6,6 @@ for defects and then correcting them with command-line user approval.
 import wikitools
 
 from wiktionary_parser.xml_parser import XMLPageParser
-from wiktionary_parser.languages.de.page import dePage
 from wiktionary_parser.languages.utils import get_page_class
 
 from wiktionary_parser.bots.utils import wikidatetime, delta, user_choice, YES, NO, QUIT, SKIP
@@ -23,8 +22,6 @@ class Change(object):
         self.word = word
         self.fix = fix
 
-site = wikitools.wiki.Wiki('http:/de.wiktionary.org/w/api.php')
-
 class Einsatz(object):
     """
     A bot run.
@@ -36,7 +33,7 @@ class Einsatz(object):
 
     """
 
-    def __init__(self, title, description, xml_file, language, live=True, online=True, memory_file_name=None):
+    def __init__(self, title, description, xml_file, page_class, site, username, live=True, online=True, memory_file_name=None):
         self.title = title
         self.live = live
         self.log_frequency = 20
@@ -46,17 +43,16 @@ class Einsatz(object):
         self.description = description
         self.words = []
         self.xml_file = xml_file
-        self.page_class = get_page_class(language)
+        self.page_class = page_class
         self.memory = FixMemory(memory_file_name)
+        self.username = username
         if self.online:
-            self.username = self.site.username()
-            self.wikilogpage = wikitools.Page(u'User:%s/Log' % self.username)
+            self.wikilogpage = wikitools.Page(site, u'User:%s/Log' % self.username)
             self.wikilogpage.getWikiText
             self.log_page = LogPage(title=self.wikilogpage.title, text=self.wikilogpage.wikitext).parse()
         else:
             self.log_page = LogPage(title=u'Bot Log Page', text='').parse()
-            self.username = u'Default'
-        self.log_section = None
+            self.log_section = None
 
     def requires_approval(self, page):
         fixable_alerts = page.get_fixable_alerts()
@@ -117,7 +113,8 @@ class Einsatz(object):
                 return None
             try:
                 text = wikipage.getWikiText()
-                return dePage(title=title, text=text)
+                text = unicode(text, 'utf-8')
+                return self.page_class(title=title, text=text)
             except (wikitools.NoPage):
                 return None
         else:

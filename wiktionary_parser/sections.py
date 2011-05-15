@@ -169,10 +169,11 @@ class Section(object):
                 if child.fixable():
                     return True
             return False
-        elif hasattr(self, 'ftdict'):
-            return (self.ftdict['fixable'])
         else:
-            return False
+            if get_fixable_alerts():
+                return True
+            else:
+                return False
 
     def fix(self):
         raise NotImplemented()
@@ -196,7 +197,23 @@ class ChildrenSection(Section):
         return fixes
 
 
-class FTSection(Section):
+class LeafSection(Section):
+    
+    def fix(self):
+        fixables = self.get_fixable_alerts()
+        fixes = set([])
+        if fixables:
+            if self.old_text:
+                raise FixingError(
+                    'A fix has already been performed on this section')
+            new_text = fixables[0].fixed_text
+            fixes.add(type(fixables[0]))
+            self.old_text = self.text
+            self.text = new_text
+        return fixes        
+
+
+class FTSection(LeafSection):
 
     def __init__(self, *args, **kwargs):
         super(FTSection, self).__init__(*args, **kwargs)
@@ -217,7 +234,7 @@ class FTSection(Section):
                     message = '%s: FIXABLE: %s' % (page_title, ft.description)
                     alert = FixableAlert(
                         message=message, title=page_title, section=self,
-                        fix=ft)
+                        fixed_text=self.ftdict['fixed_text'])
                     self.alerts.append(alert)
                 return self
         # No match to a formating type.
@@ -235,19 +252,8 @@ class FTSection(Section):
             raise NotParsedYet()
         return (hasattr(self, 'ftdict') and 'data' in self.ftdict)
     
-    def fix(self):
-        fixes = set([])
-        if self.old_text:
-            raise FixingError(
-                'A fix has already been performed on this section')
-        new_text = self.ftdict['fixed_text']
-        fixes.add(self.formating_type)
-        self.old_text = self.text
-        self.text = new_text
-        return fixes
 
-
-class FillerSection(Section):
+class FillerSection(LeafSection):
     """
     A section for a region of text that cannot be parsed.
     Used simply to store the text.
@@ -259,7 +265,7 @@ class FillerSection(Section):
         self.correct = correct
 
 
-class PatchedSection(Section):
+class PatchedSection(LeafSection):
 
     patches = []
     end_regex = u"""^[\s,'"\[\]\-/();]*$"""

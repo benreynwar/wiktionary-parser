@@ -30,12 +30,13 @@ class NoFTMatchAlert(Alert):
 
 
 class FixableAlert(Alert):
+    slug = None
     description = 'The section can be repaired by the parser.'
     fixable = True
-    def __init__(self, section, fix, *args, **kwargs):
+    def __init__(self, section, fixed_text, *args, **kwargs):
         super(FixableAlert, self).__init__(*args, **kwargs)
         self.section = section
-        self.fix = fix
+        self.fixed_text = fixed_text
 
 
 class AutoFixableAlert(FixableAlert):
