@@ -13,10 +13,12 @@ site = wikitools.wiki.Wiki('http://simple.wiktionary.org/w/api.php')
 
 username = 'Gyroidbot'
 
-run = Einsatz(u'Trial Run', u'A trial run doing two types of formating fixes.', xml_file, simplePage, site, username, live=False, online=True, memory_file_name = 'simple_memory.txt')
+run = Einsatz(u'Trial Run', u'A trial run doing two types of formating fixes.', xml_file, simplePage,
+              site, username, live=True, online=True, memory_file_name = 'simple_memory.txt')
 
-run.scan_xml(max_no=10)
-run.approval()
+#run.scan_xml(max_no=10)
+#run.approval()
+run.run()
 
 if False:
     page = run.get_page('do')

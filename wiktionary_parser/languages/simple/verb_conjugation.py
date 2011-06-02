@@ -5,13 +5,12 @@ This module deals with processing the verb conjugation forms.
 from wiktionary_parser.sections import FTSection
 from wiktionary_parser.formating_type import RegexFT
 
-
 class NormalVerbConjugation(object):
     
-    def __init__(self, plain, third, past, past_part, pres_part):
+    def __init__(self, plain, third, third_past, past_part, pres_part):
         self.plain = plain
         self.third = third
-        self.past = past
+        self.third_past = third_past
         self.past_part = past_part
         self.pres_part = pres_part
 
@@ -19,7 +18,7 @@ class NormalVerbConjugation(object):
         out = []
         out.append('I %s (present)' % self.plain)
         out.append('He %s (present)' % self.third)
-        out.append('He %s (past)' % self.past)
+        out.append('He %s (past)' % self.third_past)
         out.append('He is %s (present participle)' % self.pres_part)
         out.append('He has %s (past participle)' % self.past_part)
         return '\n'.join(out)

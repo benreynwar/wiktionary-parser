@@ -33,6 +33,7 @@ class RegexFT(FormatingType):
     def __init__(self, slug, regex, fix_func=None,
                  correct=False, readable=True, description='',
                  ignore=False, section_type=None,
+                 alert_class=None,
                  get_data=lambda section, groupdict: groupdict,
                  matching_func=None):
         """
@@ -52,6 +53,7 @@ class RegexFT(FormatingType):
         self.regex = regex
         self.fix_func = fix_func
         self.correct = correct
+        self.alert_class = alert_class
         self.pattern = re.compile(regex, re.UNICODE|re.DOTALL)
         self.readable = readable
         self.description = description

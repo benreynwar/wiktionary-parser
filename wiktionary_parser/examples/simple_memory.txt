@@ -1,0 +1,64 @@
+(dp0
+Vdo
+p1
+(V  *:''She '''does''' enjoy swimming in the pool.''\u000a  \u000a- ==Use==\u000a+ ===Use===\u000a? +       +\u000a\u000a  ''For the uses of [[make]] and '''do''', see [[Appendix:Make and '''do''']]''\u000a  \u000a
+p2
+S'F'
+p3
+tp4
+sVfamily
+p5
+(V  \u000a  ==Noun==\u000a- {{irrnoun|families}}\u000a?   ---\u000a\u000a+ {{noun|family|families}}\u000a?       +++++++\u000a\u000a  # A group of people with a blood or [[marriage]] relation.\u000a  #: ''My parents and my two brothers are my family.''\u000a
+p6
+S'AF'
+p7
+tp8
+sVdictionary
+p9
+(V  \u000a  ==Noun==\u000a- {{irrnoun|dictionaries}}\u000a?   ---\u000a\u000a+ {{noun|dictionary|dictionaries}}\u000a?       +++++++++++\u000a\u000a  [[File:Blacks-Law-Dictionary.jpg|thumb|A dictionary]]\u000a  [[File:BilingualDictionaries.jpg|thumb|Some [[bilingual]] dictionaries]]\u000a
+p10
+g7
+tp11
+sVtax
+p12
+(V  \u000a  ==Noun==\u000a- {{irrnoun|taxes}}\u000a?   ---\u000a\u000a+ {{noun|tax|taxes}}\u000a?           ++++\u000a\u000a  #[[Money]] taken by a [[government]].\u000a  #:''The [[city]] is raising '''taxes''' again.''\u000a
+p13
+g7
+tp14
+sVit
+p15
+(V  {{Pronouns}}\u000a  \u000a- ==Abbreviations==\u000a+ ===Abbreviations===\u000a? +                 +\u000a\u000a  '''It''' can be a [[short]] way of writing\u000a  * ''Italy'' or ''Italian''\u000a
+p16
+g7
+tp17
+sVred
+p18
+(V  # having the color '''red'''\u000a  \u000a- ==Phrases==\u000a+ ===Phrases===\u000a? +           +\u000a\u000a  ;to be in the red: to [[owe]] more [[money]] than one has, to be losing money.\u000a  ;to see red: to be [[angry]].\u000a
+p19
+g7
+tp20
+sVX-ray
+p21
+(V  #: The [[airport]] had an '''X-ray''' scanner.\u000a  \u000a- == Usage ==\u000a?   ^     -\u000a\u000a+ ===Usage===\u000a?   ^       +\u000a\u000a  You can use a capital ''X'' or a small ''x'' when writing this word. An ''X-ray'' is the same as an ''x-ray''.\u000a  \u000a
+p22
+g7
+tp23
+sVtechnology
+p24
+(V  \u000a  ==Noun==\u000a- {{irrnoun|technologies}}\u000a?   ---\u000a\u000a+ {{noun|technology|technologies}}\u000a?       +++++++++++\u000a\u000a  # {{cu noun}} '''Technology''' is the tools, equipment, and activities that come from scientific knowledge.\u000a  #: ''Modern '''technology''' such as [[computer]]s, [[robot]]s, and [[wireless]] [[communication]]s, can [[reduce]] the cost of doing [[business]]. (can make the cost smaller.)''\u000a
+p25
+g7
+tp26
+sVtalk
+p27
+(V  #:''His '''talk''' is meaningless.''\u000a  \u000a- == Synonyms ==\u000a?   ^        -\u000a\u000a+ ===Synonyms===\u000a?   ^          +\u000a\u000a  *[[speak]]\u000a  \u000a
+p28
+g7
+tp29
+sVsecretary
+p30
+(V  \u000a  ==Noun==\u000a- {{irrnoun|secretaries}}\u000a?   ---\u000a\u000a+ {{noun|secretary|secretaries}}\u000a?       ++++++++++\u000a\u000a  # A person who works in an [[office]], helping with [[type|typing]] letters, [[file|filing]], and other simple [[task]]s.\u000a  #: ''I will ask my secretary to write to them.''\u000a
+p31
+g7
+tp32
+s.

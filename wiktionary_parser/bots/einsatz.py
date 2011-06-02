@@ -18,9 +18,9 @@ class EndEinsatz(Exception):
     pass
 
 class Change(object):
-    def __init__(self, word, fix):
+    def __init__(self, word, alert):
         self.word = word
-        self.fix = fix
+        self.alert = alert
 
 class Einsatz(object):
     """
@@ -48,11 +48,11 @@ class Einsatz(object):
         self.username = username
         if self.online:
             self.wikilogpage = wikitools.Page(site, u'User:%s/Log' % self.username)
-            self.wikilogpage.getWikiText
-            self.log_page = LogPage(title=self.wikilogpage.title, text=self.wikilogpage.wikitext).parse()
+            self.log_page = LogPage(title=self.wikilogpage.title, text=self.wikilogpage.getWikiText()).parse()
+            self.site.login(self.username)
         else:
             self.log_page = LogPage(title=u'Bot Log Page', text='').parse()
-            self.log_section = None
+        self.log_section = None
 
     def requires_approval(self, page):
         fixable_alerts = page.get_fixable_alerts()
@@ -123,9 +123,11 @@ class Einsatz(object):
     def write_page(self, title, text, comment):
         if self.online and self.live:
             wikipage = wikitools.Page(self.site, title)
+            text = text.encode('utf8')
             wikipage.edit(text=text, summary=comment)
+            print(u'Changed Page %s.' % title)
         else:
-            raise StandardError('Not online and live')
+            print(u'Would have changed page %s if live (%s)' % (title, comment))
                         
     def repair_page(self, page_title, allowed_delta):
         if not self.online:
@@ -139,20 +141,16 @@ class Einsatz(object):
         changes = set([])
         for alert in page.get_fixable_alerts():
             alert.section.fix()
-            comments.append(alert.fix.slug)
-            changes.add(Change(page.title, alert.fix))
+            comments.append(alert.slug)
+            changes.add(Change(page.title, alert))
         new_text = page.render()
         text_delta = delta(page.text, new_text, surrounding_lines=2)
         if text_delta:
             if text_delta == allowed_delta:
                 comment = u'[[User:%s/Log#%s|%s]], ' % (self.username, self.title, u', '.join(comments))
+                self.write_page(page_title, new_text, comment)
                 if self.live:
-                    self.write_page(page_title, new_text, comment)
                     self.memory.mark_fixed(page.title, text_delta)
-                    print u'Changed Page.'
-                else:
-                    print u'Comment is', comment
-                    print u'Would have changed page if had been live.'
                 return changes
             else:
                 self.memory.remove(page.title, text_delta)
@@ -161,7 +159,7 @@ class Einsatz(object):
 
     def refresh_log(self):
         if self.online and self.live:
-            self.log_page = LogPage(title=self.wikilogpage.title, text=self.wikilogpage.get()).parse()
+            self.log_page = LogPage(title=self.wikilogpage.title, text=self.wikilogpage.getWikiText()).parse()
         else:
             self.log_page = LogPage(title=self.log_page.title, text=self.log_page.render())
         self.log_page.parse()
@@ -173,9 +171,8 @@ class Einsatz(object):
         for change in changes:
             self.log_section.add_change(change)
         if commit:
-            if self.live:
-                self.wikilogpage.put(self.log_page.render())
-
+            self.write_page(self.log_page.title, self.log_page.render(), 'updating log')
+                
     def scan_xml(self, max_no=None):
         # Check title hasn't been used before
         if self.title in self.log_page.einsatz_sections:

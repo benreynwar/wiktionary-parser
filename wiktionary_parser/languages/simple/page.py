@@ -1,9 +1,13 @@
 from wiktionary_parser.page import Page
 from wiktionary_parser.sections import Level2Block, Section, FillerSection
 from wiktionary_parser.wiktionary_utils.text_splitter import Chopper, FillerBlock
-from .sections import simpleWordTypeSection
+from .sections import simpleWordTypeSection, simpleTopSection
 
 class simplePage(Page):
+
+    def __init__(self, *args, **kwargs):
+        super(simplePage, self).__init__(*args, **kwargs)
+        self.property_dict['tags'] = set()
 
     def title_OK(self):
         # Is it an info page
@@ -23,7 +27,7 @@ class simplePage(Page):
             # It's allowed to have some unknown text before the first
             # level2 block.
             if isinstance(level2block, FillerBlock):
-                section = FillerSection(text=level2block.text, parent=self)
+                section = simpleTopSection(text=level2block.text, parent=self)
             else:
                 section = simpleWordTypeSection(text=level2block.text, parent=self)
             if not shallow:

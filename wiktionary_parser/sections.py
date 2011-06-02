@@ -74,8 +74,6 @@ class Section(object):
         if self.all_alerts is not None:
             return self.all_alerts
         if not self.parsed:
-            import pdb
-            pdb.set_trace()
             raise StandardError('Has not been parsed yet.')
         alerts = {}
         for alert in self.alerts:
@@ -135,7 +133,6 @@ class Section(object):
         else:
             return rendering
             
-
     def get_property(self, property_name):
         if property_name in self.property_dict:
             return self.property_dict[property_name]
@@ -232,7 +229,7 @@ class FTSection(LeafSection):
                 if 'fixed_text' in self.ftdict:
                     page_title = self.get_property('page').title
                     message = '%s: FIXABLE: %s' % (page_title, ft.description)
-                    alert = FixableAlert(
+                    alert = ft.alert_class(
                         message=message, title=page_title, section=self,
                         fixed_text=self.ftdict['fixed_text'])
                     self.alerts.append(alert)
@@ -282,7 +279,7 @@ class PatchedSection(LeafSection):
                     self.patched_text = new_text
                 else:
                     no_matches = True
-        if self.get_property('language') == 'Deutsch' and not self.end_pattern.match(self.patched_text):
+        if not self.end_pattern.match(self.patched_text):
             page_title = self.get_property('page').title
             message = '%s: Text without patches = %s, Full text = %s' % (page_title, self.patched_text, self.text) 
             alert = PatchRemainderAlert(

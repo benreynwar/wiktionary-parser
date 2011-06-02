@@ -39,7 +39,9 @@ class SquareBracketBlock(Block):
         elif len(bits) == 2:
             return bits[1]
         else:
-            raise StandardError("to many |'s")
+            # FIXME
+            # Should raise an alert here.  It's probably nested square brackets.
+            return bits[1]
 
 
 class HtmlBlock(Block):
@@ -50,13 +52,6 @@ class HtmlBlock(Block):
     def to_text(self):
         return ''
 
-templates = {'Literaturliste': lambda p: '',
-             'ugs.': lambda p: "''umgangssprachlich%s''" % p[1],
-             'kPl.': lambda p: "''kein Plural%s''" % p[1],
-             'n': lambda p: 'n',
-             'Audio': lambda p: '',
-             }
-
 class TemplateBlock(Block):
     """
     Processes named templates.
@@ -65,6 +60,7 @@ class TemplateBlock(Block):
     start_pattern = '{{'
     stop_pattern = '}}'
     slug = 'template_block'
+    templates = []
 
     def __init__(self, *args, **kwargs):
         super(TemplateBlock, self).__init__(*args, **kwargs)
@@ -74,15 +70,15 @@ class TemplateBlock(Block):
         params = self.text.split('|')
         if len(params) < 2:
             params.append('')
-        template_name = params[0]
-        if template_name not in templates:
+        template_name = params[0].strip()
+        if template_name not in self.templates:
             message = 'The template name %s is not known.' % template_name
             alert = NoTemplateMatchAlert(
                 message=message, title=None)
             self.alerts.append(alert)
             return '{{%s}}' % self.text
         else:
-            return templates[template_name](params)
+            return self.templates[template_name](params)
 
 class QuoteBlock(Block):
     # Patterns are actually "''" but represented in escaped form.
@@ -92,7 +88,6 @@ class QuoteBlock(Block):
 
     def to_text(self):
         return '<em>%s</em>' % self.text
-
 
 class FillerBlock(OldFillerBlock):
     
@@ -116,13 +111,21 @@ def apply_blocks(text, blocks):
             alerts += block.alerts
     return (''.join(new_text), alerts)
 
-def wikitext_to_plaintext(wikitext):
-    text, alerts = apply_blocks(wikitext, [SquareBracketBlock, HtmlBlock, TemplateBlock])
+def wikitext_to_plaintext_with_alerts(wikitext, template_block=None):
+    blocks = [SquareBracketBlock, HtmlBlock]
+    if template_block is not None:
+        blocks.append(template_block)
+    text, alerts = apply_blocks(wikitext, blocks)
     # Needs some HTML escaping
     #text = escape(text)
-    text, more_alerts = apply_blocks(text, [QuoteBlock])
-    alerts += more_alerts
-    return (text, alerts)
+    #text, more_alerts = apply_blocks(text, [QuoteBlock])
+    text = text.replace("'''", "")
+    text = text.replace("''", "")
+    return (text.strip(), alerts)
+
+def wikitext_to_plaintext(wikitext, template_block=None):
+    text, alerts = wikitext_to_plaintext_with_alerts(wikitext, template_block)
+    return text
 
 if __name__ == "__main__":
     import doctest

@@ -3,42 +3,42 @@
 import re
 
 from wiktionary_parser.formating_type import RegexFT
-from wiktionary_parser.sections import Level2Block, Level3Block, ChildrenSection, Block, FillerSection, FTSection, LeafSection
+from wiktionary_parser.sections import Level2Block, Level3Block, ChildrenSection, Block, FillerSection, FTSection, LeafSection, PatchedSection
 from wiktionary_parser.exceptions import ParsingError, InconsistentEntry
 from wiktionary_parser.fix import Fix
 from wiktionary_parser.wiktionary_utils.text_splitter import Chopper, FillerBlock
+from wiktionary_parser.utils import wikitext_to_plaintext_with_alerts as w2p
+from wiktionary_parser.patch import Patch
 
 from wiktionary_parser.languages.simple.wordtype_title import simpleWordTypeTitleSection
-from wiktionary_parser.languages.simple.word import simpleNoun, simpleVerb, simpleAdjective
-
+from wiktionary_parser.languages.simple.word import simpleNoun, simpleVerb, simpleAdjective, simpleWord
 from wiktionary_parser.languages.simple.noun_plural import simpleNounPluralSection
 from wiktionary_parser.languages.simple.verb_conjugation import simpleVerbConjugationSection
 from wiktionary_parser.languages.simple.adjective_conjugation import simpleAdjectiveConjugationSection
 from wiktionary_parser.languages.simple.alerts import MissingTypeTemplate, EarlyExample, UnknownType, Level2_not_Level3
-
+from wiktionary_parser.languages.simple.templates import simpleTemplateBlock
 
 level2_mapping = {
     # Valid Word Types
     'Noun': simpleNoun,
     'Verb': simpleVerb,
     'Adjective': simpleAdjective,
-    'Determiner': None,
-    'Preposition': None,
-    'Interjection': None,
-    'Subordinator': None,
-    'Conjunction': None,
+    'Determiner': simpleWord,
+    'Preposition': simpleWord,
+    'Interjection': simpleWord,
+    'Subordinator': simpleWord,
+    'Conjunction': simpleWord,
     'Expression': None,
     'Abbreviation': None, 
     'Contraction': None,
-    'Adverb': None,
-    'Pronoun': None,
+    'Adverb': simpleAdjective,
+    'Pronoun': simpleWord,
     'Prefix': None,
-    'Collocation': None,
-    'Coordinator': None,
+    'Coordinator': simpleWord,
     'Symbol': None,
     'Abbreviation': None,
-    'Number': None, 
-    'Numeral': None,
+    'Number': None, # Should be remove
+    'Numeral': None, # Should be removed
     'Suffix': None,
     'Acronym': None,
     'Initialism': None,
@@ -62,6 +62,96 @@ level3_mapping = {
     'Etymology': None,
     'Usage': None,
 }
+
+class simpleTopSection(ChildrenSection):
+    """
+    This section contains all the stuff before the first word type appears.
+    """
+    
+    def parse(self, shallow=False):
+        super(simpleTopSection, self).parse()
+        for l3b in Chopper(self.text, [Level3Block,],
+                           filler_blocks=True, include_tags=True):
+            if isinstance(l3b, FillerBlock):
+                section = simpleTopTopSection(text=l3b.text, parent=self)
+            else:
+                section = FillerSection(text=l3b.text, parent=self, correct=True)
+            if not shallow:
+                section = section.parse()
+            self.children.append(section)
+        return self
+
+
+tags = set([
+        'BE850',
+        'AWL',
+        ])
+
+tags_with_params = set([
+        '(?P<tag>BNC[0-9a-zA-z]*)[a-zA-Z\s\|]*',
+        ])
+
+nobracket_junk = set([
+        '<br>',
+        '<BR>',
+        "\#REDIRECT\s+\[\[['a-zA-Z\s\.-]+\]\]"
+        "\#redirect\s+\[\[['a-zA-Z\s\.-]+\]\]"
+        ])
+        
+
+junk = set([
+        'wikiquote',
+        'simplify(\|[a-zA-Z0-9\s=-]+)?',
+        'complex',
+        'also(\|[a-zA-Z\s]+)?',
+        'Wikipedia(\|[a-zA-Z\s]+)?',
+        'wikipedia(\|[a-zA-Z\s]+)?',
+        'draft',
+        'see\|[a-zA-Z\s\|]*',
+        'interwiktionary\|[a-zA-Z\s\|]*',
+        'delreq\|[a-zA-Z\s\|]*',
+        'clean up',
+        'cleanup',
+        '\[\[Image:[a-zA-Z0-9\s\|\.,]+\]\]'
+        '<!--.*?-->' # remove HTML comment
+        '-' # Adds link break in wiki
+        ])
+
+class simpleTopTopSection(PatchedSection):
+    """
+    Content before the first level 2 or level 3 section.
+    """
+    patches = []
+
+    def tag_func(section, data):
+        tags = section.get_property('tags')
+        tags.add(data['tag'])
+
+    for tag in tags_with_params:
+        patches.append(Patch( 
+                regex=u'^(?P<before>.*){{%s}}(?P<after>.*)$' % tag,
+                slug='tag',
+                process_data_func=tag_func,))
+
+    for tag in tags:
+        patches.append(Patch( 
+                regex=u'^(?P<before>.*){{(?P<tag>%s)}}(?P<after>.*)$' % tag,
+                slug='tag',
+                process_data_func=tag_func,))
+
+    for tag in junk:
+        patches.append(Patch( 
+                regex=u'^(?P<before>.*){{(?P<tag>%s)}}(?P<after>.*)$' % tag,
+                slug='junk',
+                process_data_func=lambda section, data: None,))
+
+    for tag in nobracket_junk:
+        patches.append(Patch( 
+                regex=u'^(?P<before>.*)(?P<tag>%s)(?P<after>.*)$' % tag,
+                slug='junk',
+                process_data_func=lambda section, data: None,))
+
+
 
 class simpleWordTypeSection(ChildrenSection):
 
@@ -99,7 +189,7 @@ class simpleWordTypeSection(ChildrenSection):
         word_class = level2_mapping[wordtype]
         if word_class is None:
             return FillerSection(text=self.text, parent=self.parent)
-        new_word = word_class(self.parent.title)
+        new_word = word_class(title=self.parent.title, tags=self.get_property('tags'))
         self.set_property('word',  new_word)
         self.parent.words.append(new_word)
         if not wordtype_title_sec.readable():
@@ -136,7 +226,7 @@ class simpleWordTypeHeaderSection(ChildrenSection):
     def __init__(self, *args, **kwargs):
         super(simpleWordTypeHeaderSection, self).__init__(*args, **kwargs)
         self.wordtype = self.get_property('wordtype')
-        regexs, klass = self.wordtype_info[self.wordtype]
+        regexs, klass = self.wordtype_info.get(self.wordtype, ([], None))
         self.wordtype_patterns = [re.compile(regex, re.UNICODE|re.DOTALL) for regex in regexs]
         self.match_class = klass
 
@@ -161,6 +251,7 @@ class simpleWordTypeHeaderSection(ChildrenSection):
 
         while lines:
             line = lines.pop()
+            match = None
             for pattern in self.wordtype_patterns:
                 match = pattern.match(line)
                 if match:
@@ -190,7 +281,7 @@ class simpleWordTypeHeaderSection(ChildrenSection):
         last_line = not self.text.endswith('\n')
         self.add_section(current_section, current_text, last_line=last_line)
 
-        if not found_match:
+        if not found_match and self.wordtype_patterns:
             page_title = self.get_property('page').title
             wordtype = self.get_property('wordtype')
             message = '%s: A template for wordtype %s was not found.' % (page_title, wordtype) 
@@ -220,11 +311,11 @@ class simpleDefsExamplesSection(LeafSection):
                 if example_list is None:
                     early_examples = True
                     example_list = []
-                example_list.append(line[2:].strip())
+                example_list.append(line[2:])
             elif line.startswith('#'):
                 if definitions:
                     examples.append(example_list)
-                definitions.append(line[1:].strip())
+                definitions.append(line[1:])
                 if not (early_examples and not examples):
                     example_list = []
             else:
@@ -236,9 +327,24 @@ class simpleDefsExamplesSection(LeafSection):
             alert = EarlyExample(
                 message=message, title=page_title)
             self.alerts.append(alert)
+
+        # Convert wikitext to plain text.
+        plain_definitions = []
+        for definition in definitions:
+            text, alerts = w2p(definition, template_block=simpleTemplateBlock)
+            self.alerts += alerts
+            plain_definitions.append(text.strip(' &'))
+        plain_examples = []
+        for example_list in examples:
+            plain_example_list = []
+            for example in example_list:
+                text, alerts = w2p(example, template_block=simpleTemplateBlock)
+                self.alerts += alerts
+                plain_example_list.append(text.strip(' &'))
+            plain_examples.append(plain_example_list)
             
-        word.definitions = definitions
-        word.examples = examples 
+        word.definitions = plain_definitions
+        word.examples = plain_examples 
         return self
         
 

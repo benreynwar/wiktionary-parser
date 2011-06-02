@@ -11,7 +11,7 @@ class Patch(object):
         self.process_data_func = process_data_func
         self.slug = slug
         try:
-            self.pattern = re.compile(self.regex, re.UNICODE)
+            self.pattern = re.compile(self.regex, re.UNICODE | re.DOTALL)
         except:
             print 'Failed regex is %s', self.regex
             raise

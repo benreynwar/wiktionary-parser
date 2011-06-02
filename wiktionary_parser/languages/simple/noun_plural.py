@@ -4,6 +4,7 @@ This module deals with processing the noun plural forms.
 
 from wiktionary_parser.sections import FTSection
 from wiktionary_parser.formating_type import RegexFT
+from wiktionary_parser.alerts import FixableAlert
 
 def get_data(section, groupdict):
     title = section.get_property('title')
@@ -38,6 +39,9 @@ def get_data(section, groupdict):
     data['title'] = title
     return data
 
+class irrnounAlert(FixableAlert):
+    slug = "irrnoun_used"
+    description = "Replace the irrnoun template with the noun template."
     
 class np_RegexFT(RegexFT):
     """
@@ -132,6 +136,7 @@ class simpleNounPluralSection(FTSection):
             description="Irregular plural (2nd form).",
             slug="irregular2",
             regex='^{{irrnoun\|(?P<plural1>[\w\s-]+)}}\s*$',
+            alert_class = irrnounAlert,
             fix_func= standard_fix_func, ))
 
     # Should this really be no plural.
@@ -146,5 +151,4 @@ class simpleNounPluralSection(FTSection):
             slug="no_singular2",
             regex="^{{noun2(?P<no_singular>)\|(?P<plural1>[\w\s-]+)}}\s*$",
             correct=True, ))
-
     
