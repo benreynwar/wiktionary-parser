@@ -1,15 +1,16 @@
 import re
-from .fix import Fix
 from .exceptions import NotImplemented
 
 
-class FormatingType(Fix):
+class FormatingType(object):
     """
     Represents a particular manner in which a section is formatted.
-    
-    Inherit from ``Fix`` because a FormatingType can also repair the text.
     """
     
+    def __init__(self, slug, description):
+        self.slug = slug
+        self.description = description
+
     def read(self, section):
         """
         If the section doesn't match it returns ``None``.  If it does match
@@ -32,8 +33,7 @@ class RegexFT(FormatingType):
 
     def __init__(self, slug, regex, fix_func=None,
                  correct=False, readable=True, description='',
-                 ignore=False, section_type=None,
-                 alert_class=None,
+                 ignore=False, alert_class=None,
                  get_data=lambda section, groupdict: groupdict,
                  matching_func=None):
         """
@@ -48,15 +48,13 @@ class RegexFT(FormatingType):
          ``matching_func`` a function that determines whether this formating type
             matches the section.  If it is not supplied matching the regex is sufficient.
         """
-        super(RegexFT, self).__init__(slug=slug, description=description,
-                                      section_type=section_type)
+        super(RegexFT, self).__init__(slug=slug, description=description)
         self.regex = regex
         self.fix_func = fix_func
         self.correct = correct
         self.alert_class = alert_class
         self.pattern = re.compile(regex, re.UNICODE|re.DOTALL)
         self.readable = readable
-        self.description = description
         self.ignore = ignore
         self.get_data = get_data
         self.matching_func = matching_func

@@ -5,7 +5,6 @@ import re
 from wiktionary_parser.formating_type import RegexFT
 from wiktionary_parser.sections import Level2Block, Level3Block, ChildrenSection, Block, FillerSection, FTSection, LeafSection, PatchedSection
 from wiktionary_parser.exceptions import ParsingError, InconsistentEntry
-from wiktionary_parser.fix import Fix
 from wiktionary_parser.wiktionary_utils.text_splitter import Chopper, FillerBlock
 from wiktionary_parser.utils import wikitext_to_plaintext_with_alerts as w2p
 from wiktionary_parser.patch import Patch
@@ -186,9 +185,12 @@ class simpleWordTypeSection(ChildrenSection):
                     message=message, title=page_title)
             section.alerts.append(alert)
             return section
+        # Get the Word Class associated with this type.
         word_class = level2_mapping[wordtype]
+        # If there is no Word Class then this section can be ignored.
         if word_class is None:
             return FillerSection(text=self.text, parent=self.parent)
+        # Otherwise create a new Word object.
         new_word = word_class(title=self.parent.title, tags=self.get_property('tags'))
         self.set_property('word',  new_word)
         self.parent.words.append(new_word)
