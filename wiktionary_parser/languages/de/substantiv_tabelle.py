@@ -7,8 +7,7 @@ from wiktionary_parser.wiktionary_utils.matching import MatchMatrix, CannotPair
 from wiktionary_parser.wiktionary_utils.regex_splitter import chop
 from wiktionary_parser.wiktionary_utils.formating import remove_enclosing_formating
 
-from wiktionary_parser.fix import Fix
-from wiktionary_parser.sections import Section, FillerSection
+from wiktionary_parser.sections import Section, FillerSection, LeafSection
 from wiktionary_parser.formating_type import RegexFT
 from wiktionary_parser.exceptions import NotParsedYet, FixingError
 
@@ -603,7 +602,7 @@ class SubstantivMultipleFormColl(object):
         return self.form_colls
 
             
-class SubstantivTabelleSection(Section):
+class SubstantivTabelleSection(LeafSection):
                  
     regex = u"\s*\|(?P<before>.*)"
     regex += u"Wer oder was\? \(Einzahl\)=(?P<Nom_S>.*)"
@@ -696,8 +695,6 @@ class SubstantivTabelleSection(Section):
         poss_fks = fks
         poss_genders = GENDERS
         smfc = SubstantivMultipleFormColl(self.s_data, plural=False)
-        import pdb
-        pdb.set_trace()
         try:
             smfc.process()
             # This is to make plural match singular
@@ -733,7 +730,8 @@ class SubstantivTabelleSection(Section):
             message += self.text
             message += '-----------------\n'
             message += self.fixed_text
-            alert = FixableSubstantivTabelleAlert(section=self, fix=st_fix, message=message, title=page_title)
+            alert = FixableSubstantivTabelleAlert(section=self, fixed_text=self.fixed_text,
+                                                  message=message, title=page_title)
             self.alerts.append(alert)
         # Doesn't always need to be an alert here.
         # It should just make a note if it is a singular only or plural only noun.
@@ -747,19 +745,3 @@ class SubstantivTabelleSection(Section):
                 raise e
         return self
 
-    def fix(self):
-        if not self.parsed:
-            raise NotParsedYet()
-        if self.old_text:
-            raise FixingError(u'Already Fixed')
-        if self.fixed_text:
-            self.old_text = self.text
-            self.text = self.fixed_text
-            return st_fix
-        return []
-
-
-st_fix = Fix(
-    slug=u'Substantiv Tabelle',
-    description=u'Artikeln und einfache Tippfehler werden korrigiert.',
-    section_type=SubstantivTabelleSection, )

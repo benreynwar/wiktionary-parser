@@ -2,18 +2,36 @@
 
 import re
 
+from wiktionary_parser.alerts import Alert
 from wiktionary_parser.sections import Section
-from wiktionary_parser.utils import wikitext_to_plaintext as w2p
+from wiktionary_parser.utils import wikitext_to_plaintext_with_alerts as w2p
+
+class BedeutungenNumberAlert(Alert):
+    description = 'The number of the meaning seems incorrect or the meaning does not have a number.'
+    def __init__(self, message, title):
+        super(BedeutungenNumberAlert, self).__init__(message, title)
 
 class BedeutungenSection(Section):
     def parse(self):
         super(BedeutungenSection, self).parse()
         word = self.get_property('word')
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
-        if word is not None:
-            text, alerts = w2p(content)
-            self.alerts += alerts
-            word.definitions.append(text)
+        for line in content.split('\n'):
+            if word is not None:
+                text, alerts = w2p(line)
+                self.alerts += alerts
+                # Check that the definition starts with the appropriate number.
+                defnum = len(word.definitions)+1
+                expected_start = ":[{0}]".format(defnum)
+                if text.startswith(expected_start):
+                    text = text[len(expected_start):]
+                    word.definitions.append(text)
+                else:
+                    message = u'The meaning is "{0}" and did not start with "{1}" as expected.'
+                    message.format(text, expected_start)
+                    alert = BedeutungenNumberAlert(message, word.title)
+                    self.alerts.append(alert)
+                    word.definitions.append(text)
         return self
 
 class BeispieleSection(Section):
@@ -21,11 +39,33 @@ class BeispieleSection(Section):
         super(BeispieleSection, self).parse()
         word = self.get_property('word')
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
-        if word is not None:
-            # FIXME (try to associate examples with definitions).
-            text, alerts = w2p(content)
-            self.alerts += alerts
-            word.examples.append([text])
+        examples = []
+        for line in content.split('\n'):
+            if word is not None:
+                # FIXME (try to associate examples with definitions).
+                text, alerts = w2p(content)
+                self.alerts += alerts
+                examples.append(line)
+        # Work out which meaning the examples go with.
+        pattern = '^:\[(?P<defnum>\d+)\](?P<remainder>.*)'
+        word.examples = [[] for d in word.definitions]
+        for example in examples:
+            match = re.match(pattern, example)
+            if match:
+                gd = match.groupdict()
+                defnum = int(gd['defnum']) - 1
+                if defnum >= len(word.definitions):
+                    message = u'The example "{0}" started with a number with no matching definition.'
+                    message.format(example)
+                    alert = BedeutungenNumberAlert(message, word.title)
+                    self.alerts.append(alert)
+                else:
+                    word.examples[defnum].append(gd['remainder'])
+            else:
+                message = u'The example "{0}" did not start with ":[number]".'
+                message.format(example)
+                alert = BedeutungenNumberAlert(message, word.title)
+                self.alerts.append(alert)
         return self
 
 class UebersetzungenSection(Section):
