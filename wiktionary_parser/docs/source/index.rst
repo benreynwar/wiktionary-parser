@@ -11,7 +11,7 @@ Wiktionary-Parser is a python package for parsing and autocorrecting wiktionary 
 Currently supported wiktionarys:
 
 - simple english - simple.wiktionary.org - parses definitions, examples, plurals, and conjugations.
-- german - de.wiktionary.org - not functional
+- german - de.wiktionary.org - parses definitions, examples, gender, conjugations
 
 Requirements:
 
@@ -104,23 +104,27 @@ Parsing a page taken from the wikimedia API
 -------------------------------------------
 
     >>> import wikitools
-    >>> from wiktionary_parser.languages.simple.page import simplePage
-    >>> page_title = 'horse'
-    >>> site = wikitools.wiki.Wiki('http://simple.wiktionary.org/w/api.php')
+    >>> from wiktionary_parser.languages.de.page import dePage
+    >>> page_title = 'Fisch'
+    >>> site = wikitools.wiki.Wiki('http://de.wiktionary.org/w/api.php')
     >>> wikipage = wikitools.Page(site, page_title)
     >>> text = wikipage.getWikiText()
-    >>> pg = simplePage(title=page_title, text=text)
+    >>> pg = dePage(title=page_title, text=text)
     >>> pg = pg.parse()
     >>> for word in pg.words:
     ...    print(word.summary())
-    ************
-    horse (noun)
-    ************
-    Definitions:
-    [1] A horse is a large animal. It walks on four (4) legs. People often ride on horses.
-    Tags: BNC1000HW, BE850
-    Singular: horse
-    Plural: horses
+	******************
+	Fisch (Substantiv)
+	******************
+	Definitions:
+	[1] Zoologie: Tier, das unter Wasser lebt und durch Kiemen atmet
+	[2] kein Plural: Fleisch von [1] als Lebensmittel
+	[3] zwölftes Sternbild auf der Ekliptik (Tierkreiszeichen) – üblich ist hier der Gebrauch des Plurals die Fische – oder ein in diesem Sternbild Geborener (hier auch Singular)
+	Examples:
+	[1] Der Wal ist kein Fisch.
+	[2] Fisch auf jeden Tisch. (Werbespruch aus der DDR)
+	[3] Fische sind meist rätselhafte Menschen.
+	[3] Er ist Wassermann und ich bin Fisch / darum bleibt bei uns die Liebe immer frisch – (Schlager)
 
 Contents:
 
