@@ -38,6 +38,8 @@ class BeispieleSection(Section):
     def parse(self):
         super(BeispieleSection, self).parse()
         word = self.get_property('word')
+        if word is None:
+            return self
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
         examples = []
         for line in content.split('\n'):

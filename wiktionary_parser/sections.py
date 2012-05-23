@@ -229,10 +229,11 @@ class FTSection(LeafSection):
                 if 'fixed_text' in self.ftdict:
                     page_title = self.get_property('page').title
                     message = '%s: FIXABLE: %s' % (page_title, ft.description)
-                    alert = ft.alert_class(
-                        message=message, title=page_title, section=self,
-                        fixed_text=self.ftdict['fixed_text'])
-                    self.alerts.append(alert)
+                    if ft.alert_class is not None:
+                        alert = ft.alert_class(
+                            message=message, title=page_title, section=self,
+                            fixed_text=self.ftdict['fixed_text'])
+                        self.alerts.append(alert)
                 return self
         # No match to a formating type.
         page_title = self.get_property('page').title
