@@ -323,6 +323,8 @@ class simpleDefsExamplesSection(LeafSection):
             else:
                 # FIX ME: better error
                 raise StandardError('Each line should begin with # or #:')
+        if definitions:
+            examples.append(example_list)
         if early_examples:
             page_title = self.get_property('page').title
             message = '%s: A example preceded the first definition.' % (page_title) 
