@@ -5,7 +5,11 @@ from .sections import simpleWordTypeSection, simpleTopSection
 
 class simplePage(Page):
 
+    __mapper_args__ = {'polymorphic_identity': 'simplePage'}
+    class_language = 'simple'
+
     def __init__(self, *args, **kwargs):
+        self.language = self.class_language
         super(simplePage, self).__init__(*args, **kwargs)
         self.property_dict['tags'] = set()
 

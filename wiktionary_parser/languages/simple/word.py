@@ -1,10 +1,21 @@
+"""
+Define German Word objects.
+"""
+
+from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
+from sqlalchemy.orm import relationship
+
 from wiktionary_parser.word import Word
 from wiktionary_parser.languages.simple.templates import simpleTemplateBlock
 
+from wiktionary_parser.db import Base, Session
+
 class simpleWord(Word):
 
+    __mapper_args__ = {'polymorphic_identity': 'simpleWord'}
     typeslug = 'word'
-    
+
     def __init__(self, *args, **kwargs):
         if 'tags' in kwargs:
             tags = kwargs.pop('tags')
@@ -25,6 +36,7 @@ class simpleWord(Word):
 
 class simpleNoun(simpleWord):
     
+    __mapper_args__ = {'polymorphic_identity': 'simpleNoun'}
     typeslug = 'noun'
 
     def __init__(self, *args, **kwargs):
@@ -46,10 +58,14 @@ class simpleNoun(simpleWord):
 
 class simpleVerb(simpleWord):
     
+    __mapper_args__ = {'polymorphic_identity': 'simpleVerb'}
     typeslug = 'verb'
 
     def __init__(self, *args, **kwargs):
         super(simpleVerb, self).__init__(*args, **kwargs)
+        self.setup()
+
+    def setup(self):
         self.conjugations = None
 
     def summary(self):
@@ -62,6 +78,7 @@ class simpleVerb(simpleWord):
 
 class simpleAdjective(simpleWord):
 
+    __mapper_args__ = {'polymorphic_identity': 'simpleAdjective'}
     typeslug = 'adjective'
 
     def __init__(self, *args, **kwargs):
@@ -75,16 +92,24 @@ class simpleAdjective(simpleWord):
         out.append('Superlative: %s' % self.superlative)
         return '\n'.join(out)
 
+class simpleOther(simpleWord):
+    __mapper_args__ = {'polymorphic_identity': 'simpleOther'}
+    typeslug = 'other'
+
 class simpleDeterminer(simpleWord):
+    __mapper_args__ = {'polymorphic_identity': 'simpleDeterminer'}
     typeslug = 'determiner'
 
 class simplePreposition(simpleWord):
+    __mapper_args__ = {'polymorphic_identity': 'simplePreposition'}
     typeslug = "preposition"
 
 class simpleInterjection(simpleWord):
+    __mapper_args__ = {'polymorphic_identity': 'simpleInterjection'}
     typeslug = "interjection"
 
 class simpleSubordinator(simpleWord):
+    __mapper_args__ = {'polymorphic_identity': 'simpleSubordinator'}
     typeslug = "subordinator"
 
 class simpleConjunction(simpleWord):

@@ -16,22 +16,25 @@ class BedeutungenSection(Section):
         super(BedeutungenSection, self).parse()
         word = self.get_property('word')
         content = self.text.lstrip(' \n\r\t').rstrip(' \n\r\t')
+        definitions = []
         for line in content.split('\n'):
             if word is not None:
                 text, alerts = w2p(line)
                 self.alerts += alerts
                 # Check that the definition starts with the appropriate number.
-                defnum = len(word.definitions)+1
+                defnum = len(definitions)+1
                 expected_start = ":[{0}]".format(defnum)
                 if text.startswith(expected_start):
                     text = text[len(expected_start):]
-                    word.definitions.append(text)
+                    definitions.append(text)
                 else:
                     message = u'The meaning is "{0}" and did not start with "{1}" as expected.'
-                    message.format(text, expected_start)
+                    message = message.format(text, expected_start)
                     alert = BedeutungenNumberAlert(message, word.title)
                     self.alerts.append(alert)
-                    word.definitions.append(text)
+                    definitions.append(text)
+        if word is not None:
+            word.definitions = definitions
         return self
 
 class BeispieleSection(Section):
@@ -50,7 +53,7 @@ class BeispieleSection(Section):
                 examples.append(line)
         # Work out which meaning the examples go with.
         pattern = '^:\[(?P<defnum>\d+)\](?P<remainder>.*)'
-        word.examples = [[] for d in word.definitions]
+        w_examples = [[] for d in word.definitions]
         for example in examples:
             match = re.match(pattern, example)
             if match:
@@ -62,12 +65,13 @@ class BeispieleSection(Section):
                     alert = BedeutungenNumberAlert(message, word.title)
                     self.alerts.append(alert)
                 else:
-                    word.examples[defnum].append(gd['remainder'])
+                    w_examples[defnum].append(gd['remainder'])
             else:
                 message = u'The example "{0}" did not start with ":[number]".'
                 message.format(example)
                 alert = BedeutungenNumberAlert(message, word.title)
                 self.alerts.append(alert)
+        word.examples = w_examples
         return self
 
 class UebersetzungenSection(Section):

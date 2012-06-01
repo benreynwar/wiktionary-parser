@@ -10,30 +10,31 @@ from wiktionary_parser.utils import wikitext_to_plaintext_with_alerts as w2p
 from wiktionary_parser.patch import Patch
 
 from wiktionary_parser.languages.simple.wordtype_title import simpleWordTypeTitleSection
-from wiktionary_parser.languages.simple.word import simpleNoun, simpleVerb, simpleAdjective, simpleWord
+from wiktionary_parser.languages.simple.word import simpleNoun, simpleVerb, simpleAdjective, simpleWord, simpleOther
 from wiktionary_parser.languages.simple.noun_plural import simpleNounPluralSection
 from wiktionary_parser.languages.simple.verb_conjugation import simpleVerbConjugationSection
 from wiktionary_parser.languages.simple.adjective_conjugation import simpleAdjectiveConjugationSection
 from wiktionary_parser.languages.simple.alerts import MissingTypeTemplate, EarlyExample, UnknownType, Level2_not_Level3
 from wiktionary_parser.languages.simple.templates import simpleTemplateBlock
+from wiktionary_parser.db import Session
 
 level2_mapping = {
     # Valid Word Types
     'Noun': simpleNoun,
     'Verb': simpleVerb,
     'Adjective': simpleAdjective,
-    'Determiner': simpleWord,
-    'Preposition': simpleWord,
-    'Interjection': simpleWord,
-    'Subordinator': simpleWord,
-    'Conjunction': simpleWord,
+    'Determiner': simpleOther,
+    'Preposition': simpleOther,
+    'Interjection': simpleOther,
+    'Subordinator': simpleOther,
+    'Conjunction': simpleOther,
     'Expression': None,
     'Abbreviation': None, 
     'Contraction': None,
     'Adverb': simpleAdjective,
-    'Pronoun': simpleWord,
+    'Pronoun': simpleOther,
     'Prefix': None,
-    'Coordinator': simpleWord,
+    'Coordinator': simpleOther,
     'Symbol': None,
     'Abbreviation': None,
     'Number': None, # Should be remove
@@ -191,7 +192,16 @@ class simpleWordTypeSection(ChildrenSection):
         if word_class is None:
             return FillerSection(text=self.text, parent=self.parent)
         # Otherwise create a new Word object.
-        new_word = word_class(title=self.parent.title, tags=self.get_property('tags'))
+        if word_class not in self.parent.wordtypes:
+            self.parent.wordtypes[word_class] = 1
+            order = 0
+        else:
+            order = self.parent.wordtypes[word_class]
+            self.parent.wordtypes[word_class] += 1
+        new_word = word_class.get_and_update(
+            title=self.parent.title, order=order,
+            session=Session.object_session(self.parent),
+            tags=self.get_property('tags'))
         self.set_property('word',  new_word)
         self.parent.words.append(new_word)
         if not wordtype_title_sec.readable():

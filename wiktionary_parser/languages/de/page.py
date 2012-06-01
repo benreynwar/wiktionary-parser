@@ -5,6 +5,10 @@ from .sections import deLanguageSection
 
 class dePage(Page):
 
+    def __init__(self, *args, **kwargs):
+        self.language = 'de'
+        super(dePage, self).__init__(*args, **kwargs)
+
     def title_OK(self):
         # Is it an info page
         if ':' in self.title:

@@ -36,6 +36,7 @@ Examples:
 [1] When he must do something, he acts quickly.
 [1] Don't do anything strange. Just act normal.
 [1] She acted the fool when she saw him.
+[2] Daniel Radcliffe acts in the Harry Potter films.
 Conjugation 1:
 I act (present)
 He acts (present)
@@ -55,6 +56,7 @@ Examples:
 [1] Going into the house on fire to help a child was a brave act.
 [2] The UK's Freedom of Information Act was passed in 2004. It lets people ask questions of the government.
 [3] Susan seems nice, but it's all an act.
+[4] The curtain comes down at the end of each act.
 Singular: act
 Plural: acts
 >>> len(word1.definitions)
