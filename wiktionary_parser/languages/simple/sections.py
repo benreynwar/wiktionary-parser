@@ -63,6 +63,7 @@ level3_mapping = {
     'Usage': None,
 }
 
+
 class simpleTopSection(ChildrenSection):
     """
     This section contains all the stuff before the first word type appears.
@@ -75,7 +76,10 @@ class simpleTopSection(ChildrenSection):
             if isinstance(l3b, FillerBlock):
                 section = simpleTopTopSection(text=l3b.text, parent=self)
             else:
-                section = FillerSection(text=l3b.text, parent=self, correct=True)
+                if l3b.start_tag == '===Pronunciation===':
+                    section = PronunciationSection(text=l3b.text, parent=self)
+                else:
+                    section = FillerSection(text=l3b.text, parent=self, correct=True)
             if not shallow:
                 section = section.parse()
             self.children.append(section)
@@ -361,4 +365,30 @@ class simpleDefsExamplesSection(LeafSection):
         word.examples = plain_examples 
         return self
         
-
+class PronunciationSection(LeafSection):
+    us_sampa_regex = '.*\{\{US\}\}.*\{\{SAMPA\|(?P<sampa>.*?)\}\}.*'
+    us_sampa_pattern = re.compile(us_sampa_regex, re.UNICODE|re.DOTALL)
+    default_sampa_regex = '\* \{\{SAMPA\|(?P<sampa>.*?)\}\}.*'
+    default_sampa_pattern = re.compile(default_sampa_regex, re.UNICODE|re.DOTALL)
+    
+    def parse(self):
+        super(PronunciationSection, self).parse()
+        lines = self.text.splitlines()
+        sampas = []
+        pronunciation = self.get_property('pronunication')
+        us_list = []
+        default_list = []
+        for line in lines:
+            match = self.us_sampa_pattern.match(line)
+            if match:
+                gd = match.groupdict()
+                us_list.append(gd.get('sampa', None))
+            match = self.default_sampa_pattern.match(line)
+            if match:
+                gd = match.groupdict()
+                default_list.append(gd.get('sampa', None))
+        if not default_list:
+            default_list = us_list
+        pronunciation['US'] = {'SAMPA': us_list}
+        pronunciation['default'] = {'SAMPA': default_list}
+            

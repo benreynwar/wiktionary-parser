@@ -12,6 +12,7 @@ class simplePage(Page):
         self.language = self.class_language
         super(simplePage, self).__init__(*args, **kwargs)
         self.property_dict['tags'] = set()
+        self.property_dict['pronunication'] = {}
 
     def title_OK(self):
         # Is it an info page
